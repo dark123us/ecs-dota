@@ -15,14 +15,10 @@
         if (root !== null){
             return root.FindChildTraverse(id);
         }
+        return null
     }
     const createPanel = (id, parentid) => {
-        const panel = $.CreatePanel(
-            "Panel",
-            getElementById(parentid),
-            id, 
-        )
-        return panel
+        return $.CreatePanel("Panel", getElementById(parentid), id)
     }
 
     const getParents = (panel) => {
@@ -37,9 +33,15 @@
 
     const deletePanel = (id) => {
         const panel = getElementById(id)
-        if (panel !== null)
-            panel.RemoveAndDeleteChildren()
-
+        if (panel === null) return
+        const parent = panel.GetParent()
+        Object.values(parent.Children()).map(v => {
+            if (v.id == id) {
+                v.RemoveAndDeleteChildren()
+                v.DeleteAsync(0)
+                log.debug('delete')
+            }
+        })
     }
 
     const Document = () => {
