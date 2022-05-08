@@ -1,5 +1,7 @@
 local args = {...}
 local directory = args[1]
+
+print("----------------")
 print('init ecs-dota with directory', directory)
 local module = {}
 for _, n in pairs({'component', 'entity', 'event', 'system', 'world'}) do
